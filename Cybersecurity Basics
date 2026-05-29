@@ -1,6 +1,6 @@
-                                        "UNDERSTANDING OF CIA TRIAD"
--------------------------------------------------------------------------------------------------------------------------
-
+=========================================================================================================================
+                                            "UNDERSTANDING OF CIA TRIAD"
+=========================================================================================================================
 ## 🔐 1. Confidentiality = “Keep Data Secret”
 
 Only authorized people should access the information.
@@ -74,3 +74,184 @@ The CIA Triad ensures:
 * **Confidentiality** → No unauthorized access
 * **Integrity** → No unauthorized modification
 * **Availability** → No service interruption
+
+
+=========================================================================================================================
+                                             "EXPLORE THREAT TYPE"
+=========================================================================================================================
+# Common Cybersecurity Threat Type:
+-------------------------------------------------------------------------------------------------------------------------
+## 1. Phishing
+A cyberattack where attackers trick people into sharing passwords, OTPs, bank details, or personal data using fake emails,
+messages, or websites.
+
+### Subtypes:
+* **Email Phishing** — Fake emails pretending to be trusted companies.
+* **Spear Phishing** — Targeted attack on a specific person or company.
+* **Whaling** — Targets CEOs or high-level executives.
+* **Smishing** — Phishing through SMS/text messages.
+* **Vishing** — Voice call scams pretending to be bank/support staff.
+* **Clone Phishing** — Copy of a real email with malicious links.
+
+-------------------------------------------------------------------------------------------------------------------------
+## 2. Malware
+Malicious software designed to damage, steal, or control systems.
+
+### Subtypes:
+* **Virus** — Attaches to files and spreads when opened.
+* **Worm** — Spreads automatically across networks.
+* **Trojan Horse** — Looks legitimate but hides malicious code.
+* **Spyware** — Secretly monitors user activity.
+* **Adware** — Displays unwanted advertisements.
+* **Rootkit** — Hides attacker access from the system.
+* **Keylogger** — Records keyboard typing/passwords.
+* **Bot/Botnet Malware** — Turns devices into attacker-controlled bots.
+
+---------------------------------------------------------------------------------------------------------------------------
+## 3. DDoS (Distributed Denial of Service)
+Attackers flood a server or website with huge traffic so real users cannot access it.
+
+### Subtypes:
+* **Volumetric Attack** — Massive traffic overload.
+* **Protocol Attack** — Exploits server/network weaknesses.
+* **Application Layer Attack** — Targets websites/apps directly (HTTP floods).
+* **Botnet-based DDoS** — Uses many infected devices worldwide.
+
+----------------------------------------------------------------------------------------------------------------------------
+## 4. SQL Injection (SQLi)
+Attackers insert malicious SQL code into website input fields to access or manipulate databases.
+
+### Subtypes:
+* **In-band SQLi** — Data stolen using the same communication channel.
+* **Blind SQLi** — Attacker guesses database responses indirectly.
+* **Time-based Blind SQLi** — Uses server response delays to extract data.
+* **Out-of-band SQLi** — Uses separate channels to retrieve data.
+
+Example:
+A hacker enters malicious code in a login form to bypass authentication.
+
+-----------------------------------------------------------------------------------------------------------------------------
+## 5. Brute Force Attack
+Attackers repeatedly try many passwords until the correct one is found.
+
+### Subtypes:
+* **Simple Brute Force** — Tries all combinations manually/automatically.
+* **Dictionary Attack** — Uses common password lists.
+* **Credential Stuffing** — Uses leaked usernames/passwords.
+* **Hybrid Attack** — Mix of dictionary + brute force methods.
+* **Reverse Brute Force** — One password tested against many accounts.
+
+------------------------------------------------------------------------------------------------------------------------------
+## 6. Ransomware
+Malware that encrypts files and demands money (ransom) to restore access.
+
+### Subtypes:
+* **Crypto Ransomware** — Encrypts files/data.
+* **Locker Ransomware** — Locks the device/system.
+* **Scareware** — Fake warnings demanding payment.
+* **Doxware/Leakware** — Threatens to leak stolen data.
+* **RaaS (Ransomware-as-a-Service)** — Ransomware rented to criminals.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+# Quick Summary Table
+
+| Threat Type   | Main Goal                    |
+|---------------|------------------------------|
+| Phishing      | Steal credentials/data       |
+| Malware       | Damage or control systems    |
+| DDoS          | Shut down services           |
+| SQL Injection | Access databases illegally   |
+| Brute Force   | Crack passwords              |
+| Ransomware    | Extort money by locking data |
+
+
+===============================================================================================================================
+                                                 "ATTACK VECTORS"
+===============================================================================================================================
+# Cybersecurity Attack Vectors
+
+An **attack vector** is the path or method hackers use to attack a system, network, or person.
+
+-------------------------------------------------------------------------------------------------------------------------------
+# 1. Social Engineering
+Tricking people instead of hacking machines.
+
+### Sub-types:
+* **Phishing** – Fake emails/messages to steal passwords.
+* **Spear Phishing** – Targeted phishing for a specific person/company.
+* **Vishing** – Voice call scams.
+* **Smishing** – SMS/text message scams.
+* **Baiting** – Offering free USB, software, or rewards.
+* **Pretexting** – Creating a fake story to gain trust.
+* **Tailgating** – Following someone into a secure area.
+
+### Example:
+A fake bank email asks you to “verify your password.”
+
+-------------------------------------------------------------------------------------------------------------------------------
+# 2. Wireless Attacks
+Attacks on Wi-Fi or wireless communication.
+
+### Sub-types:
+* **Evil Twin Attack** – Fake Wi-Fi hotspot.
+* **Packet Sniffing** – Capturing network data.
+* **Rogue Access Point** – Unauthorized Wi-Fi device.
+* **Bluetooth Attacks** – Exploiting Bluetooth devices.
+* **Deauthentication Attack** – Disconnecting users from Wi-Fi.
+
+### Example:
+A hacker creates free Wi-Fi named “Airport_Free_WiFi.”
+
+-------------------------------------------------------------------------------------------------------------------------------
+# 3. Insider Threats
+Threats from employees or trusted users.
+
+### Sub-types:
+* **Malicious Insider** – Employee intentionally steals data.
+* **Negligent Insider** – Employee makes mistakes.
+* **Compromised Insider** – Employee account gets hacked.
+
+### Example:
+An employee copies company data before resigning.
+
+--------------------------------------------------------------------------------------------------------------------------------
+# 4. Network Attacks
+Attacks targeting networks and servers.
+
+### Sub-types:
+* **DoS/DDoS** – Flooding servers with traffic.
+* **Man-in-the-Middle (MITM)** – Intercepting communication.
+* **Spoofing** – Pretending to be another device/user.
+* **Session Hijacking** – Stealing user sessions.
+
+---------------------------------------------------------------------------------------------------------------------------------
+# 5. Web Application Attacks
+Attacks on websites or web apps.
+
+### Sub-types:
+* **SQL Injection** – Injecting malicious database queries.
+* **Cross-Site Scripting (XSS)** – Injecting harmful scripts.
+* **CSRF** – Forcing users to perform actions unknowingly.
+* **File Inclusion** – Loading malicious files.
+
+---------------------------------------------------------------------------------------------------------------------------------
+# 6. Physical Attacks
+Direct physical access attacks.
+
+### Sub-types:
+* **USB Drops** – Infected USB devices.
+* **Device Theft** – Stealing laptops/phones.
+* **Shoulder Surfing** – Watching passwords being typed.
+
+----------------------------------------------------------------------------------------------------------------------------------
+# Basic Prevention Tips
+
+* Use strong passwords
+* Enable MFA (Multi-Factor Authentication)
+* Avoid unknown links & USBs
+* Keep software updated
+* Use secure Wi-Fi
+* Train employees regularly
+
+===================================================================================================================================
