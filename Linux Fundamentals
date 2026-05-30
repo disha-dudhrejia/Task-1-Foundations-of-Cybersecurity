@@ -1,0 +1,719 @@
+========================================================================================================================================
+                                                    LINUX FUNDAMENTALS
+========================================================================================================================================
+## 1. Understanding the Linux File System
+Linux uses a **single hierarchical directory structure** starting from the root directory:
+
+### Common Directories
+```text
+/
+├── bin      → Essential user commands
+├── boot     → Boot loader files
+├── dev      → Device files
+├── etc      → Configuration files
+├── home     → User home directories
+├── lib      → Shared libraries
+├── media    → Removable media
+├── opt      → Optional software
+├── proc     → Process information
+├── root     → Root user's home directory
+├── tmp      → Temporary files
+├── usr      → User programs
+└── var      → Logs and variable data
+```
+----------------------------------------------------------------------------------------------------------------------------------------
+# 2. Check Your Current Location
+### Command
+pwd
+
+**pwd = Print Working Directory**
+It shows your current location in the filesystem.
+----------------------------------------------------------------------------------------------------------------------------------------
+# 3. List Files and Directories
+
+**command 
+ls
+
+### Detailed Listing
+ls -l
+
+### Show Hidden Files
+ls -a
+
+### Detailed + Hidden
+ls -la
+
+Example:
+ls -la
+
+Output:
+```text
+drwxr-xr-x  Documents
+drwxr-xr-x  Downloads
+-rw-r--r--  notes.txt
+.hiddenfile
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+# 4. Change Directory
+
+### Move into a Folder
+cd Documents
+
+### Go Back One Directory
+cd ..
+
+Example:
+/home/kali/Documents
+
+cd ..
+
+Result:
+/home/kali
+---------------------------------------------------------------------------------------------------------------------------------------
+# 5. Special Navigation Symbols
+
+| Symbol | Meaning           |
+| ------ | ----------------- |
+| `.`    | Current directory |
+| `..`   | Parent directory  |
+| `~`    | Home directory    |
+| `/`    | Root directory    |
+
+Examples:
+
+command:
+cd ~
+Go to home directory.
+
+command:
+cd /
+Go to root directory.
+
+command:
+cd ..
+Go one level up.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# 6. Create Directories
+
+### Single Directory
+command:
+mkdir pentest
+
+### Multiple Directories
+command:
+mkdir tools reports scripts
+
+### Nested Directories
+command:
+mkdir -p labs/web/notes
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# 7. Create Files
+
+command:
+touch notes.txt
+
+Multiple files:
+command:
+touch file1.txt file2.txt file3.txt
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# 8. View File Content
+
+### Entire File
+command:
+cat notes.txt
+
+### First 10 Lines
+head notes.txt
+
+### Last 10 Lines
+tail notes.txt
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# 9. Find Files
+
+### Search by Name
+command:
+find . -name "notes.txt"
+
+Search from root:
+sudo find / -name "passwd"
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# Important Commands Cheat Sheet
+
+```bash
+pwd          # Show current directory
+ls           # List files
+ls -la       # Detailed list
+cd           # Change directory
+cd ..        # Parent directory
+cd ~         # Home directory
+mkdir        # Create folder
+touch        # Create file
+cat          # Display file content
+find         # Search files
+tree         # Show directory tree
+
+========================================================================================================================================
+                                                LINUX FILE & DIRECTORY PERMISSION
+========================================================================================================================================
+# 🔐 Linux File & Directory Permissions
+
+Permissions determine **who can read, write, or execute files and directories**.
+
+## 📌 Permission Types
+| Permission | Symbol | Value | Meaning                        |
+| ---------- | ------ | ----- | ------------------------------ |
+| Read       | r      | 4     | View file contents             |
+| Write      | w      | 2     | Modify file contents           |
+| Execute    | x      | 1     | Run a file as a program/script |
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 Permission Categories
+
+Linux permissions are assigned to:
+
+| Category | Symbol | Meaning                   |
+| -------- | ------ | ------------------------- |
+| User     | u      | Owner of the file         |
+| Group    | g      | Users in the file's group |
+| Others   | o      | Everyone else             |
+| All      | a      | User + Group + Others     |
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## 📌 Viewing Permissions
+
+Use:
+```command
+ls -l
+```
+
+Example:
+```command
+-rwxr-xr-- 1 kali kali 1024 May 30 script.sh
+```
+### Meaning
+
+```text
+Owner  = Read, Write, Execute
+Group  = Read, Execute
+Others = Read Only
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# 📂 File Types
+
+| Symbol | Type             |
+| ------ | ---------------- |
+| -      | Regular File     |
+| d      | Directory        |
+| l      | Symbolic Link    |
+| c      | Character Device |
+| b      | Block Device     |
+
+Example:
+
+```command
+drwxr-xr-x
+```
+The `d` indicates a directory.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 🔧 Changing Permissions with chmod
+
+## Symbolic Method
+
+### Add Execute Permission
+```command
+chmod +x script.sh
+```
+
+### Remove Write Permission
+```command
+chmod -w file.txt
+```
+
+### Give Owner Full Permission
+```command
+chmod u=rwx file.txt
+```
+
+### Give Group Read Permission
+```command
+chmod g+r file.txt
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## Numeric (Octal) Method
+
+### Permission Values
+
+```text
+Read    = 4
+Write   = 2
+Execute = 1
+```
+
+### Examples
+#### 777
+```command
+chmod 777 file.sh
+```
+
+Calculation:
+```text
+7 = 4+2+1 = rwx
+7 = 4+2+1 = rwx
+7 = 4+2+1 = rwx
+```
+
+Result:
+```text
+rwxrwxrwx
+```
+** Dangerous in production.
+---------------------------------------------------------------------------------------------------------------------------------------
+
+#### 755
+
+```command
+chmod 755 script.sh
+```
+Result:
+
+```text
+Owner  = rwx
+Group  = r-x
+Others = r-x
+```
+
+Common for scripts and web files.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+#### 644
+```command
+chmod 644 file.txt
+```
+Result:
+```text
+Owner  = rw-
+Group  = r--
+Others = r--
+```
+
+Most common for text files.
+---------------------------------------------------------------------------------------------------------------------------------------
+#### 600
+
+```command
+chmod 600 secret.txt
+```
+Result:
+```text
+Owner  = rw-
+Group  = ---
+Others = ---
+```
+
+Suitable for passwords and SSH keys.
+--------------------------------------------------------------------------------------------------------------------------------------
+
+# 👤 Changing Ownership
+
+### Change Owner
+```command
+sudo chown kali file.txt
+```
+
+### Change Owner and Group
+```command
+sudo chown kali:developers file.txt
+```
+
+### Recursive Ownership Change
+```command
+sudo chown -R kali:kali project/
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 📂 Directory Permissions
+
+Permissions behave differently on directories.
+
+| Permission | Meaning                  |
+| ---------- | ------------------------ |
+| r          | List directory contents  |
+| w          | Create/Delete files      |
+| x          | Enter (access) directory |
+
+Example:
+```command
+chmod 755 myfolder
+```
+
+Meaning:
+```text
+Owner  = Full Access
+Group  = Read + Enter
+Others = Read + Enter
+```
+
+---
+
+# 🚀 Recursive Permission Changes
+
+Apply permissions to all files and folders inside:
+```command
+chmod -R 755 project/
+```
+
+Recursive ownership:
+```command
+chown -R kali:kali project/
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 🔥 Special Permissions
+
+## SUID (Set User ID)
+
+```command
+chmod u+s file
+```
+
+Display:
+```text
+-rwsr-xr-x
+```
+
+Allows a program to run with the owner's privileges.
+
+Example:
+```command
+/usr/bin/passwd
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## SGID (Set Group ID)
+```command
+chmod g+s directory
+```
+
+Display:
+```text
+drwxr-sr-x
+```
+Files created inside inherit the directory's group.
+----------------------------------------------------------------------------------------------------------------------------------------
+
+## Sticky Bit
+```command
+chmod +t directory
+```
+
+Display:
+```text
+drwxrwxrwt
+```
+
+Used in:
+```command
+/tmp
+```
+
+Users can delete only their own files.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 🛡️ Kali Linux Security Best Practices
+
+✅ Use `755` for directories.
+✅ Use `644` for normal files.
+✅ Use `600` for sensitive files (SSH keys, passwords).
+✅ Avoid `777` unless absolutely necessary.
+
+✅ Regularly audit permissions:
+```command
+find /home -perm 777
+```
+
+Check file ownership:
+```command
+ls -la
+```
+
+Check current user:
+```command
+whoami
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+### Quick Cheat Sheet
+
+```command
+ls -l                # View permissions
+chmod 755 file       # Set permissions
+chmod +x script.sh   # Make executable
+chown user file      # Change owner
+chgrp group file     # Change group
+chmod -R 755 dir     # Recursive permissions
+chown -R user:group dir
+
+=======================================================================================================================================
+                                                         PACKAGE MANAGEMENT
+=======================================================================================================================================
+📦 1. DPKG (Debian Package Manager)
+`dpkg` is the **low-level package manager** that directly handles `.deb` package files.
+
+## Check Installed Packages
+**Command:**
+dpkg -l
+```
+
+## Install a Local Package
+**Command:**
+sudo dpkg -i package.deb
+```
+
+## Remove a Package
+**Command:**
+sudo dpkg -r package_name
+```
+
+## Remove Package Including Configuration Files
+**Command:**
+sudo dpkg -P package_name
+```
+
+## Package Information
+**Command:**
+dpkg -s package_name
+```
+
+## List Files Installed by a Package
+**Command:**
+dpkg -L package_name
+```
+
+----------------------------------------------------------------------------------------------------------------------------------------
+# 🚀 2. APT (Advanced Package Tool)
+
+APT works on top of DPKG and automatically resolves dependencies.
+
+## Update Package Database
+**Command:**
+sudo apt update
+```
+
+This downloads the latest package information from repositories.
+
+## Upgrad Installed Packages
+**Command:**
+sudo apt upgrade
+```
+
+Upgrade all installed packages.
+
+## Full System Upgrade
+**Command:**
+sudo apt full-upgrade
+```
+
+Allows installation/removal of packages if required for upgrades.
+---------------------------------------------------------------------------------------------------------------------------------------
+# 📥 Installing Packages
+
+## Install a Package
+**Command:**
+sudo apt install package_name
+```
+
+## Install Multiple Packages
+**Command:**
+sudo apt install package1 package2 package3
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+# 🔍 Searching Packages
+
+## Search Available Packages
+**Command:**
+apt search package_name
+```
+
+## Display Package Information
+**Command:**
+apt show package_name
+```
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+# 🗑️ Removing Packages
+
+## Remove Package
+**Command:**
+sudo apt remove package_name
+```
+
+## Remove Package and Configuration Files
+**Command:**
+sudo apt purge package_name
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+# 🧹 Cleaning Package Cache
+
+APT stores downloaded packages in:
+/var/cache/apt/archives/
+```
+
+## Clean Cache
+**Command:**
+sudo apt clean
+```
+
+## Remove Unnecessary Packages
+**Command:*
+sudo apt autoremove
+```
+
+**Command (including configuration files):*
+sudo apt autoremove --purge
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+# 📂 Repository Management
+
+Repositories are defined in:
+/etc/apt/sources.list
+```
+
+## View Repositories
+**Command:**
+cat /etc/apt/sources.list
+```
+
+Official Kali repository:
+deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware
+```
+
+After modifying repositories:
+**Command:**
+sudo apt update
+```
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 🔧 Fix Broken Packages
+
+## Configure Unconfigured Packages
+**Command:**
+sudo dpkg --configure -a
+```
+
+## Fix Broken Dependencies
+**Command:**
+sudo apt --fix-broken install
+```
+
+## Repair Package Database
+**Command:**
+sudo apt update --fix-missing
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+
+# 📊 Useful Package Management Commands
+
+| Command               | Purpose                                |
+| --------------------- | -------------------------------------- |
+| `apt update`          | Update package list                    |
+| `apt upgrade`         | Upgrade installed packages             |
+| `apt install package` | Install package                        |
+| `apt remove package`  | Remove package                         |
+| `apt purge package`   | Remove package and configuration files |
+| `apt autoremove`      | Remove unused dependencies             |
+| `apt search package`  | Search package                         |
+| `apt show package`    | Package details                        |
+| `dpkg -l`             | List installed packages                |
+| `dpkg -i file.deb`    | Install local package                  |
+| `dpkg -L package`     | List package files                     |
+| `dpkg -s package`     | Package status                         |
+
+=======================================================================================================================================
+                                                         NETWORKING COMMANDS
+=======================================================================================================================================
+# Networking Commands in Kali Linux
+
+| Command        | Purpose                                           | Syntax                  | Description                                                                                                                           |
+| -------------- | ------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **ifconfig**   | Display and configure network interfaces          | `ifconfig`              | Shows IP address, MAC address, and status of network interfaces. Used to enable or disable interfaces and view network configuration. |
+| **ping**       | Test connectivity between hosts                   | `ping google.com`       | Sends ICMP Echo Request packets to verify network connectivity and measure response time (latency).                                   |
+| **netstat**    | Display network connections and listening ports   | `netstat -tuln`         | Shows active TCP/UDP connections, listening ports, routing tables, and network statistics.                                            |
+| **traceroute** | Trace the route packets take to a destination     | `traceroute google.com` | Displays each hop a packet passes through to reach the destination, helping identify network delays or routing issues.                |
+| **ip**         | Manage network interfaces and routing             | `ip addr show`          | Modern replacement for `ifconfig`. Used to display and configure IP addresses, interfaces, and routing information.                   |
+| **nslookup**   | Query DNS servers                                 | `nslookup google.com`   | Retrieves DNS records and verifies domain name resolution. Useful for DNS troubleshooting.                                            |
+| **dig**        | Perform advanced DNS lookups                      | `dig google.com`        | Provides detailed information about DNS records and DNS server responses.                                                             |
+| **arp**        | Display and manage ARP cache                      | `arp -a`                | Shows mappings between IP addresses and MAC addresses stored in the ARP table.                                                        |
+| **ss**         | Display socket and network connection information | `ss -tuln`              | Modern replacement for `netstat`. Shows active connections, listening ports, and socket statistics.                                   |
+| **route**      | Display and modify routing table                  | `route -n`              | Displays network routing information and default gateway settings.                                                                    |
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## Detailed Examples
+
+| Command        | Example Command           | Output/Use                                  |
+| -------------- | ------------------------- | ------------------------------------------- |
+| **ifconfig**   | `ifconfig eth0`           | Displays configuration of interface `eth0`. |
+|                | `sudo ifconfig eth0 down` | Disables network interface `eth0`.          |
+|                | `sudo ifconfig eth0 up`   | Enables network interface `eth0`.           |
+
+| **ping**       | `ping 8.8.8.8`            | Tests connectivity to Google's DNS server.  |
+
+| **netstat**    | `netstat -an`             | Displays all active network connections.    |
+|                | `netstat -r`              | Displays routing table.                     |
+
+| **traceroute** | `traceroute google.com`   | Shows packet path to Google servers.        |
+
+| **ip**         | `ip addr show`            | Displays IP addresses of all interfaces.    |
+|                | `ip link show`            | Displays interface status.                  |
+|                | `ip route`                | Displays routing table.                     |
+
+| **nslookup**   | `nslookup google.com`     | Retrieves DNS information for Google.       |
+
+| **dig**        | `dig google.com`          | Displays detailed DNS query results.        |
+
+| **arp**        | `arp -a`                  | Lists all ARP entries.                      |
+
+| **ss**         | `ss -tuln`                | Shows listening TCP and UDP ports.          |
+
+| **route**      | `route -n`                | Displays routing table in numeric format.   |
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## Quick Revision Table
+
+| Command      | Purpose                                         |
+| ------------ | ----------------------------------------------- |
+| `ifconfig`   | View and configure network interfaces           |
+| `ping`       | Check network connectivity                      |
+| `netstat`    | View connections, ports, and network statistics |
+| `traceroute` | Trace packet path to destination                |
+| `ip`         | Manage IP addresses and routing                 |
+| `nslookup`   | Perform DNS lookup                              |
+| `dig`        | Advanced DNS analysis                           |
+| `arp`        | View IP-to-MAC address mappings                 |
+| `ss`         | View sockets and network connections            |
+| `route`      | Display routing information                     |
+
+=======================================================================================================================================
