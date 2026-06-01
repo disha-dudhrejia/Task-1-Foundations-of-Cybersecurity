@@ -1,0 +1,260 @@
+=======================================================================================================================================
+                                                    CRYPTOGRAPHY BASICS
+=======================================================================================================================================
+Cryptography is the backbone of modern cybersecurity. It protects data from unauthorized access, ensures integrity, 
+verifies identities, and enables secure communication across networks.
+=======================================================================================================================================
+# 1. Symmetric vs Asymmetric Encryption
+=======================================================================================================================================
+## What is Encryption?
+Encryption transforms readable data (**plaintext**) into unreadable data (**ciphertext**) using a cryptographic algorithm and a key.
+
+```text
+Plaintext → Encryption → Ciphertext
+Ciphertext → Decryption → Plaintext
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+## A. Symmetric Encryption
+Symmetric encryption uses **one shared key** for both encryption and decryption.
+### Working
+```
+          Secret Key
+              ↓
+Plaintext → Encrypt → Ciphertext
+              ↓
+         Decrypt
+              ↓
+          Plaintext
+```
+
+### Popular Algorithms
+| Algorithm | Key Size        | Status           |
+| --------- | --------------- | ---------------- |
+| DES       | 56-bit          | Obsolete         |
+| 3DES      | 168-bit         | Legacy           |
+| AES       | 128/192/256-bit | Recommended      |
+| Blowfish  | 32-448 bit      | Older but secure |
+
+### Advantages
+✅ Very fast
+✅ Efficient for large files
+✅ Low CPU usage
+
+### Disadvantages
+❌ Secure key sharing is difficult
+❌ If key is stolen, all data is compromised
+### Real-World Uses
+* VPN encryption
+* Disk encryption
+* Wi-Fi security (WPA2/WPA3)
+* Database encryption
+---------------------------------------------------------------------------------------------------------------------------------------
+## B. Asymmetric Encryption
+Uses **two mathematically related keys**.
+
+| Key         | Purpose |
+| ----------- | ------- |
+| Public Key  | Encrypt |
+| Private Key | Decrypt |
+
+### Working
+```
+Public Key
+     ↓
+Encrypt Message
+     ↓
+Ciphertext
+     ↓
+Private Key
+     ↓
+Decrypt Message
+```
+
+### Popular Algorithms
+| Algorithm      | Purpose                 |
+| -------------- | ----------------------- |
+| RSA            | Encryption & Signatures |
+| ECC            | Modern encryption       |
+| Diffie-Hellman | Key Exchange            |
+| ElGamal        | Encryption              |
+
+### Advantages
+✅ Solves key distribution problem
+✅ Supports digital signatures
+✅ Enables secure communication over insecure networks
+
+### Disadvantages
+❌ Slower than symmetric encryption
+❌ More computationally expensive
+---------------------------------------------------------------------------------------------------------------------------------------
+## Symmetric vs Asymmetric Comparison
+
+| Feature            | Symmetric | Asymmetric |
+| ------------------ | --------- | ---------- |
+| Keys Used          | One       | Two        |
+| Speed              | Fast      | Slow       |
+| Key Distribution   | Difficult | Easy       |
+| Digital Signatures | No        | Yes        |
+| Data Encryption    | Excellent | Good       |
+| Examples           | AES, DES  | RSA, ECC   |
+
+=======================================================================================================================================
+# 2. Hashing (MD5, SHA-256)
+=======================================================================================================================================
+
+## What is Hashing?
+Hashing converts data into a fixed-length output called a hash value (digest).
+Unlike encryption, hashing is **one-way**.
+```
+Message → Hash Function → Hash Value
+```
+
+### Example
+Input:
+```
+password123
+```
+
+Output (SHA-256):
+```
+ef92b778bafe771e89245b89ecbc...
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+## Hashing Properties
+### Deterministic
+Same input always produces same output. 
+
+### Fixed Length
+Output size remains constant.
+
+### One-Way
+Cannot practically reverse hash.
+
+### Avalanche Effect
+Small change in input creates a completely different hash.
+---------------------------------------------------------------------------------------------------------------------------------------
+## MD5
+**Message Digest Algorithm 5**
+
+Produces:
+```
+128-bit hash
+```
+
+Example:
+```
+MD5("hello")
+
+5d41402abc4b2a76b9719d911017c592
+```
+
+### Weaknesses
+❌ Collision attacks
+❌ Not secure for modern security
+❌ Deprecated for sensitive applications
+
+### Current Use
+* File integrity checks (non-critical)
+* Legacy systems
+---------------------------------------------------------------------------------------------------------------------------------------
+## SHA-256
+Part of the SHA-2 family.
+
+Produces:
+```
+256-bit hash
+```
+
+### Benefits
+✅ Strong security
+✅ Resistant to collisions
+✅ Used worldwide
+
+### Applications
+* Digital certificates
+* Blockchain
+* Password storage systems
+* File verification
+---------------------------------------------------------------------------------------------------------------------------------------
+## MD5 vs SHA-256
+
+| Feature              | MD5     | SHA-256         |
+| -------------------- | ------- | --------------- |
+| Output Size          | 128-bit | 256-bit         |
+| Security             | Weak    | Strong          |
+| Collision Resistance | Broken  | Strong          |
+| Recommended          | No      | Yes             |
+| Speed                | Faster  | Slightly slower |
+=======================================================================================================================================
+                                               3. Digital Certificates & SSL/TLS
+=======================================================================================================================================
+
+## Digital Certificate
+A digital certificate proves the identity of a website, server, or organization.
+Think of it as an online passport.
+
+### Contains
+* Owner information
+* Public key
+* Issuing authority
+* Expiration date
+* Digital signature
+---------------------------------------------------------------------------------------------------------------------------------------
+## Certificate Authorities (CA)
+Trusted organizations that issue certificates.
+
+Examples:
+* DigiCert
+* Let's Encrypt
+* Sectigo
+---------------------------------------------------------------------------------------------------------------------------------------
+## SSL and TLS
+### SSL (Secure Sockets Layer)
+Older encryption protocol.
+
+### TLS (Transport Layer Security)
+Modern replacement for SSL.
+Current recommendation:
+
+```
+TLS 1.3
+```
+---------------------------------------------------------------------------------------------------------------------------------------
+## HTTP vs HTTPS
+| HTTP           | HTTPS            |
+| -------------- | ---------------- |
+| Unencrypted    | Encrypted        |
+| Port 80        | Port 443         |
+| Vulnerable     | Secure           |
+| No certificate | Uses certificate |
+---------------------------------------------------------------------------------------------------------------------------------------
+
+## TLS Handshake Process
+
+### Step 1: Client Hello
+Browser contacts server.
+
+### Step 2: Server Hello
+Server sends:
+* Certificate
+* Public key
+
+### Step 3: Certificate Validation
+Browser verifies certificate.
+
+### Step 4: Session Key Creation
+Secure session key established.
+
+### Step 5: Encrypted Communication
+All traffic becomes encrypted.
+
+## Why SSL/TLS Matters
+
+Protects against:
+* Eavesdropping
+* Man-in-the-Middle (MITM) attacks
+* Data tampering
+* Credential theft
+=======================================================================================================================================
+                                    4. Hands-On: Encrypt and Decrypt Messages Using OpenSSL
+=======================================================================================================================================
